@@ -5,7 +5,7 @@ import pandas as pd
 from datetime import timedelta
 import datetime
 
-chat = 'GroenLinks'
+chat = 'FVDNL'#works with channels where not subscribed
 api_id = 5521822
 api_hash = '44208a895cc9a3ed25eb161e9eaad9f7'
 client = TelegramClient('session_id', api_id, api_hash)
