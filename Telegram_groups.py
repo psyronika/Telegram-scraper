@@ -19,6 +19,7 @@ async with client:
 df = pd.DataFrame(result, columns = ['Date', 'Sender_ID', 'Message_ID', 'Text'])
 df.to_csv(r'/Users/m.simonuva.nl/Documents/GitHub/Telegram-scraper/testing.csv', index = False)
 
+
 #does not work yet
 
 date = datetime.date.today()

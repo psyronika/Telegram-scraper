@@ -4,7 +4,7 @@ from telethon import TelegramClient
 import pandas as pd
 import datetime
 
-chat = 'FVDNL'#works with channels where not subscribed
+chat = 'FVDNL' #works with channels where not subscribed it seems
 api_id = 5521822
 api_hash = '44208a895cc9a3ed25eb161e9eaad9f7'
 client = TelegramClient('session_id', api_id, api_hash)
