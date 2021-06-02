@@ -13,8 +13,29 @@ client = TelegramClient('session_id', api_id, api_hash)
 # Note `async with` and `async for`
 async with client:
 	result = []
-	async for msg in client.iter_messages(chat, limit = None): 
-		result.append([msg.date, msg.id, msg.text])
+	async for msg in client.iter_messages(chat): 
+		result.append([msg.date, msg.sender_id, msg.id, msg.text])
 
-df = pd.DataFrame(result, columns = ['Date', 'ID', 'Text'])
-df.to_csv(r'/Users/m.simonuva.nl/Documents/PhD project files/Telegram/channel.csv', index = False)
+df = pd.DataFrame(result, columns = ['Date', 'Sender_ID','Message_ID', 'Text'])
+df.to_csv(r'/Users/m.simonuva.nl/Documents/GitHub/Telegram-scraper/channel.csv', index = False)
+
+
+
+from telethon.sync import TelegramClient
+from telethon import functions, types
+import datetime
+
+#gethistoryrequest
+#detailed output, very limited though
+with TelegramClient('name', api_id, api_hash) as client:
+    result = client(functions.messages.GetHistoryRequest(
+        peer='GroenLinks',
+        offset_id=0,
+        offset_date=datetime.datetime(2021, 6, 1),
+        add_offset=0,
+        limit=1,
+        max_id=0,
+        min_id=0,
+        hash=0
+    ))
+    print(result.stringify())

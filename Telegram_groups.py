@@ -11,12 +11,13 @@ api_hash = '44208a895cc9a3ed25eb161e9eaad9f7'
 client = TelegramClient('session_id', api_id, api_hash)
 
 # Note `async with` and `async for`
+async with client:
 	result = []
-	async for msg in client.iter_messages(chat, limit = 5000): 
-		result.append([msg.date, msg.sender.first_name, msg.id, msg.text])
+	async for msg in client.iter_messages(chat): #worked without limit for group
+		result.append([msg.date, msg.sender_id, msg.id, msg.text])
 
-df = pd.DataFrame(result, columns = ['Date', 'Name', 'ID', 'Text'])
-df.to_csv(r'/Users/m.simonuva.nl/Documents/PhD project files/data_new.csv', index = False)
+df = pd.DataFrame(result, columns = ['Date', 'Sender_ID', 'Message_ID', 'Text'])
+df.to_csv(r'/Users/m.simonuva.nl/Documents/GitHub/Telegram-scraper/testing.csv', index = False)
 
 #does not work yet
 
