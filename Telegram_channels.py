@@ -2,7 +2,6 @@
 
 from telethon import TelegramClient
 import pandas as pd
-from datetime import timedelta
 import datetime
 
 chat = 'FVDNL'#works with channels where not subscribed
@@ -21,9 +20,6 @@ df.to_csv(r'/Users/m.simonuva.nl/Documents/GitHub/Telegram-scraper/channel.csv',
 
 
 
-from telethon.sync import TelegramClient
-from telethon import functions, types
-import datetime
 
 #gethistoryrequest
 #detailed output, very limited though
