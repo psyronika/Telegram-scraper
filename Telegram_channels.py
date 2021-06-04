@@ -35,3 +35,22 @@ with TelegramClient('name', api_id, api_hash) as client:
         hash=0
     ))
     print(result.stringify())
+
+#some trial stuff
+from telethon import errors
+
+try:
+    await client.connect()
+except OSError:
+    print('Failed to connect')
+
+
+try:
+    async with client.takeout() as takeout:
+        await takeout.get_messages('me')
+        test = []
+        async for msg in takeout.iter_messages(chat, wait_time=0.3):
+            test.append([msg.date, msg.sender_id, msg.id, msg.text])
+
+except errors.TakeoutInitDelayError as e:
+    print('Must wait', e.seconds, 'before takeout')
