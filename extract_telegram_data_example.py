@@ -62,12 +62,12 @@ channels = excel_source['links'].tolist()
 process_sources('channel', client, channels, output_folder)
 '''
 
-source = pd.read_csv('sources\Telegram_chats.csv')
+source = pd.read_csv('/Users/m.simonuva.nl/Documents/GitHub/Telegram-scraper/Telegram-scraper/Telegram_chats.csv')
 chats = source['links'].tolist()
 process_sources('chat', client, chats, output_folder)
 
 '''
-channels = pd.read_csv('telegram_channels\Telegram_channel - Sheet1.csv', names=['1','2','channel'])
+channels = pd.read_csv('/Users/m.simonuva.nl/Documents/GitHub/Telegram-scraper/Telegram-scraper/Telegram_channels', names=['1','2','channel'])
 print(channels)
 for i, row in channels.iterrows():
     c = row['channel']
