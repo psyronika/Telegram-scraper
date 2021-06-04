@@ -26,7 +26,7 @@ def process_source(_type, client, source, posts, output_folder):
     i=1
     print(_type + ' :', source)
     if str(source).startswith('https://t.me/'):
-        source = source[13:]
+        source = source[0:]
     #if str(channel).startswith('https://t.me/joinchat'):
         #channel = channel[22:]
         #print(' Channel Modified:', channel)
