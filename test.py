@@ -78,7 +78,7 @@ channels = excel_source['links'].tolist()
 process_sources('channel', client, channels, output_folder)
 '''
 
-source = pd.read_csv('/Users/m.simonuva.nl/Documents/GitHub/Telegram/Telegram-scraper/Telegram_chats.csv')
+source = pd.read_csv('/Users/m.simonuva.nl/Documents/GitHub/Telegram-scraper/Telegram-scraper/Telegram_chats.csv')
 chats = source['links'].tolist()
 process_sources('chat', client, chats, output_folder)
 
