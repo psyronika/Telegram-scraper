@@ -53,7 +53,7 @@ print("date and time:",date_time)
 output_folder = 'results\\results_' + date_time
 os.mkdir(output_folder)
 
-
+#check if event loop runs
 import asyncio
 def get_or_create_eventloop():
     try:
@@ -64,6 +64,7 @@ def get_or_create_eventloop():
             asyncio.set_event_loop(loop)
             return asyncio.get_event_loop()
 
+# if not event loop create new
 loop = asyncio.new_event_loop()
 asyncio.set_event_loop(loop)
 
