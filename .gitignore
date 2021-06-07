@@ -17,3 +17,6 @@ session_id.session
 testing.session-journal
 test.ipynb
 .DS_Store
+test.session
+session.session
+test.session-journal
