@@ -15,3 +15,5 @@ session_id.session
 .ipynb_checkpoints/Untitled-checkpoint.ipynb
 .ipynb_checkpoints/Untitled-checkpoint.ipynb
 testing.session-journal
+test.ipynb
+.DS_Store
