@@ -10,21 +10,32 @@ api_hash = '44208a895cc9a3ed25eb161e9eaad9f7'
 
 client = TelegramClient('session_id', api_id, api_hash)
 
-def get_chat(chats):
-    source = pd.read_csv('/Users/m.simonuva.nl/Documents/GitHub/Telegram-scraper/Telegram-scraper/Telegram_chats.csv')
-    chats = source['links'].tolist()
-    chat = [c for c in chats]
-    return chat
 
-# Note `async with` and `async for`
-async with client:
-	result = []
-	async for msg in client.iter_messages(get_chat(chats)): 
-		result.append([msg.date, msg.sender_id, msg.id, msg.text])
+async def get_chat(chats):
+    for chat in chats:
+        print(chat)
 
 df = pd.DataFrame(result, columns = ['Date', 'Sender_ID','Message_ID', 'Text'])
 df.to_csv(r'/Users/m.simonuva.nl/Documents/GitHub/Telegram-scraper/channel.csv', index = False)
 
+
+async with client:
+    result = []
+    async for msg in client.iter_messages(get_chat(chats)): 
+        result.append([msg.date, msg.sender_id, msg.id, msg.text])
+
+df = pd.DataFrame(result, columns = ['Date', 'Sender_ID','Message_ID', 'Text'])
+df.to_csv(r'/Users/m.simonuva.nl/Documents/GitHub/Telegram-scraper/channel.csv', index = False)
+
+
+#this doesn't work 
+async def get_chat(chats):
+    for chat in chats:
+        print(chat)
+        async with client:
+            result = []
+            async for msg in client.iter_messages(chat): 
+                result.append([msg.date, msg.sender_id, msg.id, msg.text])
 
 
 #gethistoryrequest
