@@ -20,30 +20,33 @@ def read_links(filename):
         return links
 
 
-async def connect(api_id, api_hash):
-    try:
-        await client.start()
-        await client.connect()
-    except OSError:
-        print('Failed to connect')
-
-
-async def sayhi():
-    # Now you can use all client methods listed below, like for example...
-    await client.send_message('me', 'Hello to myself!')
-
-async def getresults(chat):
+async def retrieve_single_chat(chat):
+    '''takes link to a telegram chat as input and returns a list with its contents'''
     result = []
     await asyncio.sleep(1)
     async for msg in client.iter_messages(chat): 
-        result.append([msg.date, msg.sender_id, msg.id, msg.text])
+        result.append([chat, msg.date, msg.sender_id, msg.id, msg.text])
     return result
 
 
 def preprocess(row):
     ''' takes a row as returned from telethon and preprocesses it before saving'''
-    row[0] = row[0].strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+    try:
+        row[1] = row[1].strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+    except Exception as e:
+        print(f"Could not preprocess the row {row}")
+        print("Full error message:")
+        print(e)
     return row
+
+
+def retrieve_chats(listofchats):
+    '''takes a list of links to telegram chat as input and returns a geneator that yields for each
+    chat a lists with its contents'''
+    for link in tqdm(listofchats):
+        #return (preprocess(row) for row in client.loop.run_until_complete(retrieve_single_chat(link)))
+        for row in client.loop.run_until_complete(retrieve_single_chat(link)):
+            yield preprocess(row)
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser(description='Tool to scrape info from telegram.')
@@ -55,24 +58,16 @@ if __name__=="__main__":
     links = read_links(args.linkfile)
     print(f"Read {len(links)} links.")
 
-    # TODO: consider outsourcing this to a function 
-
-
-    #asyncio.run(main())
-    # asyncio.run(connect(API_ID, API_HASH))
-
     client = TelegramClient('session',API_ID, API_HASH)
     results = []
     with open(args.outputfile, mode='w') as f:
         writer = csv.writer(f)
         if not args.noheader:
-            header = ['Date', 'Sender_ID', 'Message_ID', 'Text']
+            header = ['chat', 'date', 'sender_id', 'message_id', 'text']
             writer.writerow(header)
         with client:
-            for link in tqdm(links):
-                #client.loop.run_until_complete(sayhi())
-                r = [preprocess(row) for row in client.loop.run_until_complete(getresults(link))]
-                writer.writerows(r)  
+            for chatdata in retrieve_chats(links):
+                writer.writerow(chatdata)  
 
 
      
