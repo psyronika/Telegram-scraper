@@ -20,3 +20,9 @@ test.ipynb
 test.session
 session.session
 test.session-journal
+*.py
+Telegram_channels.py
+Telegram_chats.csv
+Telegram_groups.py
+api_file.rtf
+Telegram_chats.csv
