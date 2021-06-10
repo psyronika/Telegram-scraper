@@ -7,12 +7,12 @@ import argparse
 from tqdm import tqdm
 import time
 import csv
+import json
 
 
-API_ID = 5813010
-API_HASH = 'e83f29bc53a39155751b19dc510ec0e5'
-
-
+def get_keys(path):
+    with open(path) as f:
+        return json.load(f)
 
 def read_links(filename):
     '''reads a newline-delimited text file with links and returns a list of links'''
@@ -23,9 +23,10 @@ def read_links(filename):
 async def retrieve_single_chat(channel):
     '''takes link to a telegram chat as input and returns a list with its contents'''
     result = []
-    await asyncio.sleep(1)
+    await asyncio.sleep(2)
     async for msg in client.iter_messages(channel): 
         result.append([channel, msg.date, msg.sender_id, msg.id, msg.text])
+        await asyncio.sleep(2)
     return result
 
 
@@ -55,6 +56,10 @@ if __name__=="__main__":
     parser.add_argument('--noheader', action="store_true", help="don't write header to csv")
     args = parser.parse_args()
 
+    keys = get_keys('/Users/m.simonuva.nl/Documents/secret/Telegram_keys.json')
+    API_ID = keys['API_ID']
+    API_HASH = keys['API_HASH']
+    
     links = read_links(args.linkfile)
     print(f"Read {len(links)} links.")
 
