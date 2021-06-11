@@ -67,7 +67,7 @@ if __name__=="__main__":
     with open(args.outputfile, mode='w') as f:
         writer = csv.writer(f)
         if not args.noheader:
-            header = ['chat', 'date', 'sender_id', 'message_id', 'text']
+            header = ['url', 'date', 'sender_id', 'message_id', 'text']
             writer.writerow(header)
         with client:
             for chatdata in retrieve_chats(links):
