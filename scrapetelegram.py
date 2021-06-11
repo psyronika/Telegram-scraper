@@ -9,8 +9,8 @@ import csv
 import json
 
 
-def get_keys(path):
-    with open(path) as f:
+def get_keys(filename):
+    with open(filename) as f:
         return json.load(f)
 
 def read_links(filename):
@@ -53,9 +53,10 @@ if __name__=="__main__":
     parser.add_argument('linkfile', type=str, help='a newline-delimited text file with Telegram links to scrape')
     parser.add_argument('outputfile',type=str, help='a name for the csv file to create')
     parser.add_argument('--noheader', action="store_true", help="don't write header to csv")
+    parser.add_argument('apikeys', type=str, help = 'a json file with api id and api hash')
     args = parser.parse_args()
 
-    keys = get_keys('/Users/m.simonuva.nl/Documents/secret/Telegram_keys.json')
+    keys = get_keys(args.apikeys)
     API_ID = keys['API_ID']
     API_HASH = keys['API_HASH']
 
