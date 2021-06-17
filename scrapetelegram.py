@@ -23,9 +23,9 @@ def read_links(filename):
 async def retrieve_single_chat(chat):
     '''takes link to a telegram chat as input and returns a list with its contents'''
     result = []
-    await asyncio.sleep(40)
+    await asyncio.sleep(1)
     async for msg in client.iter_messages(chat): 
-        result.append([chat, msg.date, msg.sender_id, msg.id, msg.text])
+        result.append([chat, msg.date, msg.sender, msg.id, msg.text])
     return result
 
 
